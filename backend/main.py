@@ -30,6 +30,7 @@ app.add_middleware(
         "http://localhost:3010",
         "http://127.0.0.1:3010",
         settings.frontend_url,
+        "https://frontend-iota-eight-68.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],

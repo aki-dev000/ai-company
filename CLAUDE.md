@@ -152,3 +152,50 @@ Step 5（並列, depends_on: s3）: 拡散・展開
 | `backend/config.py` | `max_tokens=4096`, `context_budget_tokens=6000` |
 
 コンテキスト予算（`context_budget_tokens`）は各エージェントへ渡す`prior_outputs`の上限制御に使用。記事執筆のように前段の出力を多く参照する場合は増やすことを検討。
+
+---
+
+## Web対応エージェント（ToolUseAgent）
+
+`web_enabled: true` を持つエージェントは `ToolUseAgent` として動作し、以下のツールを使える。
+
+| ツール | 説明 |
+|--------|------|
+| `web_search` | DuckDuckGoでウェブ検索（APIキー不要） |
+| `fetch_url` | 指定URLの本文テキストを取得・解析 |
+
+### 追加済みWebエージェント
+
+| エージェントID | 役割 | 出力ドキュメント |
+|---|---|---|
+| `web_researcher` | 任意テーマのウェブ調査レポート | `20_web_research.md` |
+| `competitor_analyst` | 競合他社の分析・比較表・戦略提案 | `21_competitor_analysis.md` |
+| `trend_monitor` | 技術・市場トレンドのリアルタイム収集 | `22_trend_report.md` |
+
+### 新規Webエージェントの追加方法
+
+`backend/agents/definitions/` に以下のYAMLを追加するだけ：
+
+```yaml
+web_enabled: true   # これだけでToolUseAgentに自動切替
+```
+
+### 開く事業の選択肢
+
+| サービス | 使うエージェント |
+|---|---|
+| リアルタイム競合分析レポート | competitor_analyst |
+| 市場調査・業界動向レポート | web_researcher + trend_monitor |
+| 技術選定サポート（最新情報付き） | web_researcher + cto |
+| 投資先リサーチ | web_researcher + finance_analyst_1 |
+| コンテンツリサーチ付き記事制作 | web_researcher → content_writer_1 |
+
+### ディレクティブ例
+
+```
+「AIエージェント市場の主要プレイヤーを競合分析し、TechForwardが参入できるニッチを提案してください。web_researcherとcompetitor_analystを必ず使ってください。」
+```
+
+```
+「2025年のエッジAIトレンドをウェブで調査し、CTOへの技術投資提案書を作成してください。」
+```

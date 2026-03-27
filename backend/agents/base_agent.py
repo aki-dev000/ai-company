@@ -24,6 +24,9 @@ class AgentDefinition:
     output_document: str
     can_delegate_to: list[str] = field(default_factory=list)
     avatar_color: str = "#6366f1"
+    web_enabled: bool = False
+    browser_enabled: bool = False   # Playwright ブラウザ操作
+    computer_use: bool = False      # Anthropic Computer Use beta（Mac デスクトップ操作）
 
 
 @dataclass

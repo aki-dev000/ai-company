@@ -18,13 +18,14 @@ export default function DirectiveInput({ onSessionStart, isRunning }: Props) {
   const [directive, setDirective] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [autoMode, setAutoMode] = useState(false);
 
   const handleSubmit = async () => {
     if (!directive.trim() || loading || isRunning) return;
     setLoading(true);
     setError("");
     try {
-      const { session_id } = await submitDirective(directive.trim());
+      const { session_id } = await submitDirective(directive.trim(), autoMode);
       onSessionStart(session_id);
       setDirective("");
     } catch (e) {
@@ -71,14 +72,43 @@ export default function DirectiveInput({ onSessionStart, isRunning }: Props) {
         ))}
       </div>
 
+      {/* Auto Mode トグル */}
+      <div className="flex items-center gap-3 mb-3 p-2.5 bg-gray-800 rounded-lg">
+        <button
+          type="button"
+          onClick={() => setAutoMode(!autoMode)}
+          disabled={isRunning || loading}
+          className={`relative w-9 h-5 rounded-full transition flex-shrink-0
+                      ${autoMode ? "bg-indigo-600" : "bg-gray-600"}
+                      disabled:opacity-50`}
+        >
+          <span className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all
+                           ${autoMode ? "left-4" : "left-0.5"}`} />
+        </button>
+        <div>
+          <p className="text-xs font-medium text-white">
+            Auto Mode {autoMode && <span className="text-indigo-400">ON</span>}
+          </p>
+          <p className="text-xs text-gray-500">
+            {autoMode
+              ? "完了時に Notion保存・Gmail通知を自動実行"
+              : "手動モード（通知はスキップ）"}
+          </p>
+        </div>
+      </div>
+
       {error && <p className="text-red-400 text-xs mb-2">{error}</p>}
 
       <button
         onClick={handleSubmit}
         disabled={!directive.trim() || loading || isRunning}
-        className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white font-medium py-2 rounded-lg transition-colors text-sm"
+        className={`w-full disabled:bg-gray-700 disabled:text-gray-500 text-white font-medium
+                    py-2 rounded-lg transition-colors text-sm
+                    ${autoMode
+                      ? "bg-indigo-600 hover:bg-indigo-500"
+                      : "bg-blue-600 hover:bg-blue-500"}`}
       >
-        {loading ? "送信中..." : "指示を出す (⌘+Enter)"}
+        {loading ? "送信中..." : autoMode ? "Auto で指示を出す (⌘+Enter)" : "指示を出す (⌘+Enter)"}
       </button>
     </div>
   );

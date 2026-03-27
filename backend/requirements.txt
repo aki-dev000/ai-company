@@ -6,3 +6,16 @@ pydantic==2.10.3
 pydantic-settings==2.7.0
 python-dotenv==1.0.1
 aiofiles==24.1.0
+# Web tools (for ToolUseAgent)
+duckduckgo-search==6.3.7
+httpx==0.27.2
+beautifulsoup4==4.12.3
+# Browser Use (Playwright)
+playwright==1.49.1
+# pyautogui はオプション（Anthropic Computer Use / Mac デスクトップ操作に必要）
+# macOS では pyobjc-core のビルドに Xcode Command Line Tools が必要：
+#   xcode-select --install
+#   pip install pyautogui
+# pyautogui==0.9.54
+# Scheduler (Dispatch)
+apscheduler==3.10.4

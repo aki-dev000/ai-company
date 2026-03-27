@@ -11,11 +11,12 @@ router = APIRouter(prefix="/api/directives", tags=["directives"])
 
 class DirectiveRequest(BaseModel):
     directive: str
+    auto_mode: bool = False
 
 
-async def _run_and_update(session_id: str, directive: str):
+async def _run_and_update(session_id: str, directive: str, auto_mode: bool = False):
     try:
-        await run_directive(session_id, directive)
+        await run_directive(session_id, directive, auto_mode=auto_mode)
         update_session(session_id, status="completed")
     except Exception as e:
         update_session(session_id, status="error", error=str(e))
@@ -28,8 +29,17 @@ async def submit_directive(req: DirectiveRequest, background_tasks: BackgroundTa
     if not req.directive.strip():
         raise HTTPException(status_code=400, detail="Directive cannot be empty")
     session = create_session(req.directive.strip())
-    background_tasks.add_task(_run_and_update, session["session_id"], req.directive.strip())
-    return {"session_id": session["session_id"], "status": "running"}
+    background_tasks.add_task(
+        _run_and_update,
+        session["session_id"],
+        req.directive.strip(),
+        req.auto_mode,
+    )
+    return {
+        "session_id": session["session_id"],
+        "status": "running",
+        "auto_mode": req.auto_mode,
+    }
 
 
 @router.get("")

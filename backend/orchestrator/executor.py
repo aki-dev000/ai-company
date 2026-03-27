@@ -5,6 +5,7 @@ from agents.base_agent import AgentContext, AgentOutput
 from agents.registry import get_agent
 from orchestrator.plan_schema import ExecutionPlan, PlanStep
 from utils.event_bus import event_bus
+from services.notification_manager import notify_completion
 
 
 def _topological_sort(steps: list[PlanStep]) -> list[PlanStep]:
@@ -43,7 +44,7 @@ def _build_context(directive: str, completed: dict[str, list[AgentOutput]]) -> A
     return AgentContext(directive=directive, prior_outputs=prior_outputs)
 
 
-async def execute_plan(session_id: str, plan: ExecutionPlan):
+async def execute_plan(session_id: str, plan: ExecutionPlan, auto_mode: bool = False):
     sorted_steps = _topological_sort(plan.steps)
     completed: dict[str, list[AgentOutput]] = {}
 
@@ -116,6 +117,15 @@ async def execute_plan(session_id: str, plan: ExecutionPlan):
         "event": "run_complete",
         "session_id": session_id,
         "documents": all_docs,
+        "auto_mode": auto_mode,
     })
+
+    # 通知（Notion保存 + Gmail送信）
+    await notify_completion(
+        session_id=session_id,
+        directive=plan.directive,
+        documents=all_docs,
+        auto_mode=auto_mode,
+    )
 
     await event_bus.close(session_id)

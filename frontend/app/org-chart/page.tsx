@@ -10,6 +10,13 @@ const DEPT_LABELS: Record<string, string> = {
   sales: "セールス",
   hr: "HR",
   finance: "ファイナンス",
+  research: "リサーチ",
+  development_dept: "開発部",
+  marketing_dept: "マーケティング部",
+  sales_dept: "営業部",
+  finance_dept: "財務部",
+  hr_dept: "人事部",
+  npp: "新規プロジェクト推進室",
 };
 
 function AgentCard({ agent }: { agent: Agent }) {

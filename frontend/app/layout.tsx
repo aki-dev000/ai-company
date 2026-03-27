@@ -31,6 +31,9 @@ export default function RootLayout({
           <Link href="/" className="text-sm text-gray-400 hover:text-white transition-colors">ダッシュボード</Link>
           <Link href="/org-chart" className="text-sm text-gray-400 hover:text-white transition-colors">組織図</Link>
           <Link href="/documents" className="text-sm text-gray-400 hover:text-white transition-colors">ドキュメント</Link>
+          <Link href="/dispatch" className="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-1">
+            🕐 Dispatch
+          </Link>
         </nav>
         <main className="flex-1">{children}</main>
       </body>

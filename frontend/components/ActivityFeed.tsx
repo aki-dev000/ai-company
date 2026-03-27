@@ -78,10 +78,15 @@ function EventItem({ event }: { event: SSEEvent }) {
             <span className={`text-xs px-1.5 py-0.5 rounded ${deptClass}`}>
               {event.department}
             </span>
+            {event.web_enabled && (
+              <span className="text-xs px-1.5 py-0.5 rounded bg-sky-900 text-sky-300">
+                🌐 Web
+              </span>
+            )}
           </div>
           <p className="text-xs text-gray-500 mt-0.5 flex items-center gap-1">
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
-            考え中...
+            {event.web_enabled ? "ウェブを調査中..." : "考え中..."}
           </p>
         </div>
       </div>
@@ -94,6 +99,30 @@ function EventItem({ event }: { event: SSEEvent }) {
         <pre className="text-xs text-gray-300 whitespace-pre-wrap font-sans leading-relaxed max-h-48 overflow-y-auto">
           {event.token}
         </pre>
+      </div>
+    );
+  }
+
+  if (event.event === "tool_use") {
+    const isSearch = event.tool_name === "web_search";
+    const label = isSearch
+      ? `検索中: "${event.tool_input?.query as string}"`
+      : `取得中: ${event.tool_input?.url as string}`;
+    return (
+      <div className="ml-11 flex items-center gap-2 py-1 -mt-1">
+        <span className="text-sky-400 text-sm">{isSearch ? "🔍" : "🌐"}</span>
+        <span className="text-xs text-sky-300 italic">{label}</span>
+      </div>
+    );
+  }
+
+  if (event.event === "tool_result") {
+    return (
+      <div className="ml-11 mb-2 bg-sky-950 border border-sky-800 rounded px-3 py-1.5">
+        <p className="text-xs text-sky-400 font-medium mb-0.5">
+          {event.tool_name === "web_search" ? "検索結果" : "ページ取得完了"}
+        </p>
+        <p className="text-xs text-gray-400 leading-relaxed line-clamp-3">{event.preview}</p>
       </div>
     );
   }
@@ -115,6 +144,52 @@ function EventItem({ event }: { event: SSEEvent }) {
           <p className="text-sm font-semibold text-green-400">全エージェントの処理が完了しました</p>
           <p className="text-xs text-gray-400 mt-0.5">{event.documents?.length || 0}件のドキュメントが生成されました</p>
         </div>
+      </div>
+    );
+  }
+
+  if (event.event === "notification_start") {
+    return (
+      <div className="flex items-center gap-2 py-1.5 mt-1">
+        <span className="text-lg">📬</span>
+        <span className="text-xs text-indigo-300 italic">{event.message}</span>
+      </div>
+    );
+  }
+
+  if (event.event === "notification_done") {
+    return (
+      <div className="bg-indigo-950 border border-indigo-800 rounded px-3 py-2 mt-1">
+        <p className="text-xs font-semibold text-indigo-300 mb-1">通知完了</p>
+        {event.notion_url && (
+          <a
+            href={event.notion_url as string}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-indigo-400 hover:text-indigo-200 underline block"
+          >
+            Notionで確認する →
+          </a>
+        )}
+        {event.gmail_sent && (
+          <p className="text-xs text-gray-400 mt-0.5">Gmail 送信済み ✓</p>
+        )}
+      </div>
+    );
+  }
+
+  if (event.event === "screenshot") {
+    return (
+      <div className="ml-11 mb-2 bg-gray-900 border border-gray-700 rounded overflow-hidden">
+        <p className="text-xs text-gray-500 px-2 py-1">{event.agent_name} — ブラウザ操作中</p>
+        {event.screenshot_b64 && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={`data:image/png;base64,${event.screenshot_b64}`}
+            alt="browser screenshot"
+            className="w-full"
+          />
+        )}
       </div>
     );
   }

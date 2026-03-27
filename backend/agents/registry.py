@@ -3,6 +3,9 @@ from typing import Optional
 import yaml
 
 from agents.base_agent import AgentDefinition, BaseAgent
+from agents.tool_use_agent import ToolUseAgent
+from agents.browser_use_agent import BrowserUseAgent
+from agents.computer_use_agent import ComputerUseAgent
 from config import AGENTS_DIR
 
 
@@ -33,10 +36,21 @@ def load_agents():
             output_document=data["output_document"],
             can_delegate_to=data.get("can_delegate_to", []),
             avatar_color=data.get("avatar_color", "#6366f1"),
+            web_enabled=data.get("web_enabled", False),
+            browser_enabled=data.get("browser_enabled", False),
+            computer_use=data.get("computer_use", False),
         )
 
         _definitions[defn.id] = defn
-        _registry[defn.id] = BaseAgent(defn)
+        if defn.computer_use:
+            agent_cls = ComputerUseAgent
+        elif defn.browser_enabled:
+            agent_cls = BrowserUseAgent
+        elif defn.web_enabled:
+            agent_cls = ToolUseAgent
+        else:
+            agent_cls = BaseAgent
+        _registry[defn.id] = agent_cls(defn)
 
 
 def get_agent(agent_id: str) -> Optional[BaseAgent]:
@@ -64,5 +78,6 @@ def get_org_chart() -> list[dict]:
             "direct_reports": defn.direct_reports,
             "responsibilities": defn.responsibilities,
             "avatar_color": defn.avatar_color,
+            "web_enabled": defn.web_enabled,
         })
     return sorted(result, key=lambda x: (x["tier"], x["id"]))

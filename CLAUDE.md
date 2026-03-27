@@ -6,6 +6,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **TechForward Inc.** — 18人のAIエージェントが役割を持って連携するバーチャルソフトウェア会社のシミュレーションシステム。CEOユーザーがディレクティブを入力すると、Plannerが実行計画を生成し、各エージェントが順次・並列に処理して結果をMarkdownドキュメントとして保存する。
 
+## デプロイ情報
+
+| | URL |
+|---|---|
+| フロントエンド（Vercel） | https://frontend-iota-eight-68.vercel.app |
+| バックエンド（Railway） | https://ai-company-production-4024.up.railway.app |
+
+**再デプロイ手順:**
+```bash
+# バックエンド（Railway）
+cd backend && railway up --detach
+
+# フロントエンド（Vercel）
+cd frontend && vercel --prod --yes
+```
+
+**Railway プロジェクト情報:**
+- Project: ai-company（aki-dev000's Projects）
+- Service: ai-company
+- Project ID: 25ecbe24-77f7-4baa-b9e5-bcbf7c77576d
+
+**Vercel プロジェクト情報:**
+- Project: frontend（aki-dev000s-projects）
+- Project ID: prj_zm8Afr2m0Lp0Iud4n4qOGRtLKzNl
+
+---
+
 ## 起動・開発コマンド
 
 ```bash

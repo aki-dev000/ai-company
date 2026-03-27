@@ -69,6 +69,8 @@ export interface SSEEvent {
   steps?: PlanStep[];
   documents?: string[];
   message?: string;
+  directive?: string;
+  session_id?: string;
   ts?: string;
 }
 

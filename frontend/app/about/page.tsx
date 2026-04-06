@@ -107,17 +107,17 @@ const pillars = [
     href: "/business/ebook",
   },
   {
-    tag: "④ AI Sticker Studio",
-    tagColor: "#ec4899",
-    icon: "💬",
-    iconBg: "#ec4899",
-    title: "LINEスタンプ自動生成",
+    tag: "④ MA° Design & Goods",
+    tagColor: "#c2410c",
+    icon: "🎨",
+    iconBg: "#c2410c",
+    title: "MA°ブランド・デザインアセット事業",
     description:
-      "テーマを指定すると、AIが会話用スタンプセットを設計し、LINE Creators Market 提出前の ZIP 一式まで整えるアセット事業。定期生成ラインにより継続的に新作を蓄積する。",
+      "ミニマルブランド MA° のグラフィックをSUZURIグッズ・LINEスタンプとして展開。AIでデザインバリエーションを量産し、軌道・余白・静かな熱量をテーマにしたアセットを継続的に蓄積・販売する。",
     bullets: [
-      "通常スタンプ 8 枚セットを自動生成",
-      "ZIP / preview / metadata を一括出力",
-      "審査リスクを意識した文言・権利チェック",
+      "SUZURIでTシャツ・ステッカー・スマホケース等を販売",
+      "MA°の世界観に沿ったLINEスタンプを自動生成",
+      "X→SUZURIショップへの誘導で認知→購入の循環",
     ],
     href: "/business/line-sticker",
   },
@@ -143,7 +143,7 @@ const pillars = [
     iconBg: "#14b8a6",
     title: "ナレッジ基盤・プライベートAI",
     description:
-      "PDF、Markdown、URL、ローカルLLMをつなぎ、TechForward全体の調査・執筆・提案を支える知識基盤を構築する。",
+      "PDF、Markdown、URL、ローカルLLMをつなぎ、Neiro全体の調査・執筆・提案を支える知識基盤を構築する。",
     bullets: [
       "my-brain-connector による知識集約",
       "Gemma / Ollama を用いたプライベートAI検証",
@@ -269,7 +269,7 @@ export default function AboutPage() {
               />
               <img
                 src="/mascot.png"
-                alt="Lumi — TechForwardの知的守護AI"
+                alt="Lumi — Neiroの知的守護AI"
                 width={280}
                 height={356}
                 className="relative z-10 drop-shadow-2xl"
@@ -281,7 +281,7 @@ export default function AboutPage() {
           {/* テキスト */}
           <div className="flex-1 text-center md:text-left">
             <p className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-3">
-              TechForward Inc. — Company Overview
+              Neiro Inc. — Company Overview
             </p>
             <h1 className="text-4xl font-bold text-white mb-5 leading-tight">
               AIを探究し、
@@ -457,7 +457,7 @@ export default function AboutPage() {
                   </span>
                 </div>
                 <p className="text-blue-400 text-sm font-semibold mb-3">
-                  TechForwardの知的守護AI
+                  Neiroの知的守護AI
                 </p>
                 <p className="text-gray-300 text-sm leading-relaxed mb-4">
                   Lumiは<strong className="text-white">"Luminous Intelligence"</strong>の象徴。
@@ -577,7 +577,7 @@ export default function AboutPage() {
         {/* ===== 9. フッター ===== */}
         <footer className="border-t border-gray-800 pt-6 text-center" aria-label="フッター">
           <p className="text-gray-600 text-xs">
-            TechForward Inc. — Working Intelligence Platform
+            Neiro Inc. — Working Intelligence Platform
             &nbsp;|&nbsp;
             Powered by 24 AI Agents &amp; Lumi
           </p>

@@ -74,11 +74,6 @@ async def _trigger_schedule(
             await run_weekly_bio_report()
             return
 
-        if job_type == "dx_report":
-            from services.dx_report_service import run_weekly_dx_report
-            await run_weekly_dx_report()
-            return
-
         if job_type == "line_sticker":
             from services.line_sticker_service import run_weekly_line_sticker_job
             await run_weekly_line_sticker_job()
@@ -272,14 +267,6 @@ _AUTO_SCHEDULES = [
         "cron": "0 9-16 * * 1",       # 毎週月曜 09〜16時 毎時 (8回)
         "label": "🧠 働く脳のパフォーマンスレポート (月 09-16時 毎時)",
         "job_type": "bio_report",
-        "job_config": {},
-    },
-    {
-        "match_key": "job_type",
-        "match_val": "dx_report",
-        "cron": "0 9-16 * * 2",       # 毎週火曜 09〜16時 毎時 (8回)
-        "label": "🤖 DXリサーチレポート (火 09-16時 毎時)",
-        "job_type": "dx_report",
         "job_config": {},
     },
     {

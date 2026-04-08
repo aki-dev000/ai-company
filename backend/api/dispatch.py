@@ -55,11 +55,7 @@ async def _run_content_job(job_type: str, job_config: dict[str, Any]):
         from services.bio_report_service import run_weekly_bio_report
         await run_weekly_bio_report()
         return
-    if job_type == "dx_report":
-        from services.dx_report_service import run_weekly_dx_report
-        await run_weekly_dx_report()
-        return
-    if job_type == "line_sticker":
+if job_type == "line_sticker":
         from services.line_sticker_service import run_weekly_line_sticker_job
         await run_weekly_line_sticker_job()
         return

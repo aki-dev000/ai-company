@@ -5,7 +5,6 @@ const businesses = [
     number: "01",
     tag: "AI Research & Media",
     icon: "📡",
-    color: "#2563eb",
     title: "AI技術リサーチ・情報発信",
     tagline: "「何を使えばいいか」「AIで何が変わるのか」——その問いに、週次リサーチで答え続ける。",
     description:
@@ -27,38 +26,35 @@ const businesses = [
       { label: "開始", value: "2026 Q2 β版" },
     ],
     href: "/business/industrial-ai",
-    reportsHref: "/business/industrial-ai/reports",
     inquiryHref: "/business/industrial-ai/inquiry",
   },
   {
     number: "02",
-    tag: "Bio-Digital Research",
+    tag: "Performance Science",
     icon: "🧠",
-    color: "#7c3aed",
-    title: "人間知性×AI研究",
-    tagline: "人間の知性の解明は、AI開発の最前線でもある。記憶・意識・感情の科学をAIに接続する。",
+    title: "働く脳のパフォーマンス研究",
+    tagline: "睡眠・集中・ストレスの科学を、働き方改善と高単価相談に接続する。",
     description:
-      "認知科学・神経科学の最新研究を週次でキュレーション・記事化。意識インターフェース設計コンサル、Human Intelligence API（研究開発中）まで、人間知性×AIの探究を事業化する長期R&D事業。",
+      "睡眠・集中・ストレスの最新研究を週次でキュレーションし、働く人向けの実践レポートとして配信。無料公開から note、有料購読、個別相談へ接続する収益導線を持つ研究メディア事業。",
     services: [
-      { label: "Bio-Digital Research Report", desc: "週次PDF配信", badge: "FREE→PAID" },
+      { label: "働く脳のパフォーマンスレポート", desc: "週次PDF + note導線", badge: "FREE→PAID" },
       { label: "意識インターフェース設計", desc: "AIプロダクトUXコンサル", badge: "CONSULT" },
       { label: "Human Intelligence API", desc: "研究開発中", badge: "R&D" },
       { label: "Dream AI Project", desc: "学術機関との共同研究", badge: "RESEARCH" },
     ],
     metrics: [
       { label: "リサーチ頻度", value: "毎週月曜 自動生成" },
-      { label: "対象領域", value: "認知科学・神経科学" },
+      { label: "対象領域", value: "睡眠・集中・ストレス" },
       { label: "開始", value: "2026 Q3 開始" },
     ],
     href: "/business/bio-digital",
     reportsHref: "/business/bio-digital/reports",
-    inquiryHref: null,
+    inquiryHref: "/business/bio-digital/inquiry",
   },
   {
     number: "03",
     tag: "E-Book Publishing",
     icon: "📚",
-    color: "#059669",
     title: "電子書籍出版",
     tagline: "テーマを入力するだけ。AIがリサーチ・執筆・EPUB化を自動化し、Kindle出版を加速する。",
     description:
@@ -82,7 +78,6 @@ const businesses = [
     number: "04",
     tag: "MA° Design & Goods",
     icon: "🎨",
-    color: "#c2410c",
     title: "MA°ブランド・デザインアセット事業",
     tagline: "軌道と余白でつくる、静かな熱のミニマルブランド。SUZURIグッズとLINEスタンプを展開。",
     description:
@@ -108,7 +103,6 @@ const businesses = [
     number: "05",
     tag: "AI Media Operations",
     icon: "🎬",
-    color: "#ea580c",
     title: "AIメディア自動運営",
     tagline: "記事・短尺動画・派生チャンネルを、AIが企画から配信まで継続運営する。",
     description:
@@ -136,7 +130,6 @@ const businesses = [
     number: "06",
     tag: "Knowledge Infrastructure",
     icon: "🗂️",
-    color: "#14b8a6",
     title: "ナレッジ基盤・プライベートAI",
     tagline: "PDF、Markdown、URL、ローカルLLMをつなぎ、Neiroの知識を再利用可能な資産に変える。",
     description:
@@ -161,14 +154,14 @@ const businesses = [
 
 export default function BusinessPage() {
   return (
-    <div className="min-h-full bg-gray-950 text-gray-100">
+    <div className="min-h-full">
 
       {/* Hero */}
-      <section className="border-b border-gray-800 bg-gradient-to-br from-gray-900 via-gray-900 to-gray-950 px-6 py-14">
+      <section className="border-b border-[var(--border-warm)] px-6 py-14">
         <div className="max-w-5xl mx-auto">
-          <p className="text-xs font-bold uppercase tracking-widest text-blue-500 mb-2">BUSINESSES</p>
-          <h1 className="text-4xl font-bold text-white mb-3">6つの事業</h1>
-          <p className="text-gray-400 text-lg max-w-2xl leading-relaxed">
+          <p className="text-[10px] tracking-[0.3em] uppercase mb-2" style={{ color: "var(--accent-gold)", opacity: 0.6 }}>BUSINESSES</p>
+          <h1 className="text-4xl font-medium mb-3" style={{ fontFamily: "var(--font-noto-serif), serif" }}>6つの事業</h1>
+          <p className="text-lg max-w-2xl leading-relaxed" style={{ opacity: 0.5 }}>
             「AIを探究し、その知識を社会全体の力に変える」——<br />
             AI技術リサーチ・情報発信、人間知性×AI研究、電子書籍出版、LINEスタンプ自動生成、AIメディア自動運営、ナレッジ基盤・プライベートAIの6本柱で展開する。
           </p>
@@ -177,8 +170,8 @@ export default function BusinessPage() {
               <a
                 key={b.number}
                 href={`#business-${b.number}`}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-colors"
-                style={{ borderColor: b.color + "44", color: b.color, backgroundColor: b.color + "11" }}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm border text-xs font-medium transition-colors"
+                style={{ borderColor: "var(--border-warm)", color: "var(--accent-gold)" }}
               >
                 {b.icon} {b.tag}
               </a>
@@ -193,32 +186,32 @@ export default function BusinessPage() {
           <section
             key={b.number}
             id={`business-${b.number}`}
-            className="border rounded-2xl overflow-hidden bg-gray-900"
-            style={{ borderColor: b.color + "33" }}
+            className="border rounded-sm overflow-hidden"
+            style={{ borderColor: "var(--border-warm)" }}
           >
             {/* カードヘッダー */}
             <div
               className="px-6 py-5 border-b"
-              style={{ borderColor: b.color + "22", background: b.color + "0d" }}
+              style={{ borderColor: "var(--border-warm)" }}
             >
               <div className="flex items-start gap-4">
                 <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl flex-shrink-0"
-                  style={{ backgroundColor: b.color + "22", border: `1px solid ${b.color}44` }}
+                  className="w-14 h-14 rounded-sm flex items-center justify-center text-3xl flex-shrink-0"
+                  style={{ backgroundColor: "var(--border-warm)" }}
                 >
                   {b.icon}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1 flex-wrap">
                     <span
-                      className="text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded"
-                      style={{ backgroundColor: b.color + "22", color: b.color }}
+                      className="text-[10px] tracking-[0.3em] uppercase px-2 py-0.5 rounded-sm"
+                      style={{ color: "var(--accent-gold)", opacity: 0.6 }}
                     >
                       {b.number} — {b.tag}
                     </span>
                   </div>
-                  <h2 className="text-xl font-bold text-white">{b.title}</h2>
-                  <p className="text-sm mt-1 leading-relaxed" style={{ color: b.color + "cc" }}>
+                  <h2 className="text-xl font-medium" style={{ fontFamily: "var(--font-noto-serif), serif" }}>{b.title}</h2>
+                  <p className="text-sm mt-1 leading-relaxed" style={{ color: "var(--accent-gold)" }}>
                     {b.tagline}
                   </p>
                 </div>
@@ -229,18 +222,18 @@ export default function BusinessPage() {
             <div className="px-6 py-5 grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* 左：説明 + サービス */}
               <div>
-                <p className="text-gray-300 text-sm leading-relaxed mb-4">{b.description}</p>
+                <p className="text-sm leading-relaxed mb-4" style={{ opacity: 0.5 }}>{b.description}</p>
                 <div className="space-y-2">
                   {b.services.map((s) => (
                     <div key={s.label} className="flex items-center gap-3">
                       <span
-                        className="text-xs font-bold px-1.5 py-0.5 rounded flex-shrink-0"
-                        style={{ backgroundColor: b.color + "22", color: b.color }}
+                        className="text-xs font-medium px-1.5 py-0.5 rounded-sm flex-shrink-0"
+                        style={{ color: "var(--accent-gold)", opacity: 0.6 }}
                       >
                         {s.badge}
                       </span>
-                      <span className="text-white text-sm font-medium">{s.label}</span>
-                      <span className="text-gray-500 text-xs ml-auto">{s.desc}</span>
+                      <span className="text-sm font-medium">{s.label}</span>
+                      <span className="text-xs ml-auto" style={{ opacity: 0.4 }}>{s.desc}</span>
                     </div>
                   ))}
                 </div>
@@ -252,11 +245,11 @@ export default function BusinessPage() {
                   {b.metrics.map((m) => (
                     <div
                       key={m.label}
-                      className="border rounded-lg px-4 py-2.5 flex items-center justify-between"
-                      style={{ borderColor: b.color + "22" }}
+                      className="border rounded-sm px-4 py-2.5 flex items-center justify-between"
+                      style={{ borderColor: "var(--border-warm)" }}
                     >
-                      <p className="text-xs text-gray-500">{m.label}</p>
-                      <p className="text-white text-sm font-semibold">{m.value}</p>
+                      <p className="text-xs" style={{ opacity: 0.4 }}>{m.label}</p>
+                      <p className="text-sm font-medium">{m.value}</p>
                     </div>
                   ))}
                 </div>
@@ -265,27 +258,27 @@ export default function BusinessPage() {
                 <div className="flex flex-col gap-2">
                   <Link
                     href={b.href}
-                    className="flex items-center justify-center gap-2 py-2.5 rounded-lg font-semibold text-sm text-white transition-colors"
-                    style={{ backgroundColor: b.color }}
+                    className="flex items-center justify-center gap-2 py-2.5 rounded-sm font-medium text-sm transition-colors"
+                    style={{ backgroundColor: "var(--accent-gold)", color: "var(--background)" }}
                   >
                     事業詳細を見る →
                   </Link>
                   {b.reportsHref && (
                     <Link
                       href={b.reportsHref}
-                      className="flex items-center justify-center gap-2 py-2 rounded-lg font-semibold text-xs border transition-colors hover:bg-white/5"
-                      style={{ borderColor: b.color + "44", color: b.color }}
+                      className="flex items-center justify-center gap-2 py-2 rounded-sm font-medium text-xs border transition-colors hover:opacity-80"
+                      style={{ borderColor: "var(--border-warm)", color: "var(--accent-gold)" }}
                     >
-                      📄 最新レポートを読む
+                      最新レポートを読む
                     </Link>
                   )}
                   {b.inquiryHref && (
                     <Link
                       href={b.inquiryHref}
-                      className="flex items-center justify-center gap-2 py-2 rounded-lg font-semibold text-xs border transition-colors hover:bg-white/5"
-                      style={{ borderColor: b.color + "44", color: b.color }}
+                      className="flex items-center justify-center gap-2 py-2 rounded-sm font-medium text-xs border transition-colors hover:opacity-80"
+                      style={{ borderColor: "var(--border-warm)", color: "var(--accent-indigo)" }}
                     >
-                      🔍 分析を依頼する
+                      分析を依頼する
                     </Link>
                   )}
                 </div>
@@ -295,8 +288,8 @@ export default function BusinessPage() {
         ))}
 
         {/* 戻るリンク */}
-        <div className="border-t border-gray-800 pt-6">
-          <Link href="/about" className="text-sm text-gray-400 hover:text-white transition-colors">
+        <div className="border-t border-[var(--border-warm)] pt-6">
+          <Link href="/about" className="text-sm transition-colors hover:opacity-80" style={{ opacity: 0.5 }}>
             ← 企業概要に戻る
           </Link>
         </div>

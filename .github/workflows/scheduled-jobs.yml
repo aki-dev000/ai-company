@@ -7,10 +7,8 @@ on:
   schedule:
     # Bio-Digital レポート: 月曜 09:00 JST = 日曜 24:00 UTC = 月曜 00:00 UTC
     - cron: "0 0 * * 1"
-    # DX リサーチレポート: 火曜 09:00 JST = 火曜 00:00 UTC
-    - cron: "0 0 * * 2"
-    # X 投稿: 一時停止中
-    # - cron: "0 4 * * 1,3,5"
+    # X 投稿: 月水金 13:00 JST = 04:00 UTC
+    - cron: "0 4 * * 1,3,5"
     # MA° LINE スタンプ生成: 木曜 10:00 JST = 01:00 UTC
     - cron: "0 1 * * 4"
     # 電子書籍出版: 土曜 09:00 JST = 00:00 UTC
@@ -31,7 +29,6 @@ on:
         type: choice
         options:
           - bio_report
-          - dx_report
           - x_weekly_post
           - line_sticker
           - weekly_ebook
@@ -61,8 +58,7 @@ jobs:
 
           case "$CRON" in
             "0 0 * * 1")   echo "job_type=bio_report" >> "$GITHUB_OUTPUT" ;;
-            "0 0 * * 2")   echo "job_type=dx_report" >> "$GITHUB_OUTPUT" ;;
-            "0 4 * * 1,3,5") echo "job_type=x_weekly_post" >> "$GITHUB_OUTPUT" ;;
+"0 4 * * 1,3,5") echo "job_type=x_weekly_post" >> "$GITHUB_OUTPUT" ;;
             "0 1 * * 4")   echo "job_type=line_sticker" >> "$GITHUB_OUTPUT" ;;
             "0 0 * * 6")   echo "job_type=weekly_ebook" >> "$GITHUB_OUTPUT" ;;
             "0 3 * * *")   echo "job_type=instagram_daily" >> "$GITHUB_OUTPUT" ;;

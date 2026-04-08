@@ -43,8 +43,10 @@ async def _run_auto(session_id: str, directive: str, auto_mode: bool):
 
 async def _run_content_job_and_track(job_type: str, job_config: dict[str, Any]):
     """_run_content_job を実行し、対応スケジュールの last_run を更新する。"""
-    await _run_content_job(job_type, job_config)
-    update_last_run(job_type, job_config)
+    try:
+        await _run_content_job(job_type, job_config)
+    finally:
+        update_last_run(job_type, job_config)
 
 
 async def _run_content_job(job_type: str, job_config: dict[str, Any]):

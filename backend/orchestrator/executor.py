@@ -48,6 +48,15 @@ async def execute_plan(session_id: str, plan: ExecutionPlan, auto_mode: bool = F
     sorted_steps = _topological_sort(plan.steps)
     completed: dict[str, list[AgentOutput]] = {}
 
+    if not sorted_steps:
+        await event_bus.emit(session_id, {
+            "event": "error",
+            "agent_id": "orchestrator",
+            "message": "実行計画に有効なステップがありません。エージェント定義の読み込み状況を確認してください。",
+        })
+        await event_bus.close(session_id)
+        raise RuntimeError("No executable plan steps were produced")
+
     await event_bus.emit(session_id, {
         "event": "plan_ready",
         "steps": [
@@ -84,6 +93,7 @@ async def execute_plan(session_id: str, plan: ExecutionPlan, auto_mode: bool = F
             try:
                 return await agent.run(session_id, context)
             except Exception as e:
+                print(f"[Executor] Agent '{agent_id}' failed: {type(e).__name__}: {e}")
                 await event_bus.emit(session_id, {
                     "event": "error",
                     "agent_id": agent_id,
@@ -100,6 +110,16 @@ async def execute_plan(session_id: str, plan: ExecutionPlan, auto_mode: bool = F
                 results.append(r)
 
         completed[step.step_id] = [r for r in results if r is not None]
+
+        if not completed[step.step_id]:
+            await event_bus.emit(session_id, {
+                "event": "error",
+                "step_id": step.step_id,
+                "label": step.label,
+                "message": "このステップのエージェント出力が生成されませんでした。",
+            })
+            await event_bus.close(session_id)
+            raise RuntimeError(f"Step '{step.label}' produced no agent outputs")
 
         await event_bus.emit(session_id, {
             "event": "step_complete",
